@@ -62,8 +62,11 @@ public class Game {
 
 	// Display a list of valid inputs to the user.
 	private void printHelp() {
-		// TODO: Write actual help menu.
-		System.out.println("\nIf the help menu were written yet, this is where it would go.\n");
+		System.out.println("\nCommand list:");
+		System.out.println("A1   - Where 'A' is a letter from A-I and '1' is a number from 1-9. Scan a tile.");
+		System.out.println("!A1  - Mark or unmark a tile.");
+		System.out.println("exit - Quit the game.");
+		System.out.println("help - Show this menu again.\n");
 	}
 
 	// Display a message on program exit thanking the user for playing the game.

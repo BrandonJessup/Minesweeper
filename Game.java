@@ -104,10 +104,83 @@ public class Game {
 	// Takes a String and returns true if the content is a tile on the
 	// board (A7) or an exclamation point followed by a tile (!B3).
 	private boolean isTile(String str) {
-		boolean isTile = false;
+		boolean isTile;
 
-		// TODO: Write body of method.
+		int length = str.length();
+		// Check if user entered a valid scan tile command.
+		if (length == 2) {
+			if (isColumn(str.charAt(0)) && isRow(str.charAt(1))) {
+				isTile = true;
+			}
+			else {
+				isTile = false;
+			}
+		}
+		// Check if user entered a valid mark tile command.
+		else if (length == 3) {
+			if (str.charAt(0) == '!' && isColumn(str.charAt(1)) && isRow(str.charAt(2))) {
+				isTile = true;
+			}
+			else {
+				isTile = false;
+			}
+		}
+		else {
+			isTile = false;
+		}
 
 		return isTile;
+	}
+
+	// Takes a character and returns true if the character is within the valid
+	// range for columns.
+	private boolean isColumn(char ch) {
+		boolean isColumn;
+
+		char upper = Character.toUpperCase(ch);
+
+		switch (upper) {
+		case 'A':
+		case 'B':
+		case 'C':
+		case 'D':
+		case 'E':
+		case 'F':
+		case 'G':
+		case 'H':
+		case 'I':
+			isColumn = true;
+			break;
+		default:
+			isColumn = false;
+			break;
+		}
+
+		return isColumn;
+	}
+
+	// Takes a character and returns true if that character is within the valid
+	// range for rows.
+	private boolean isRow(char ch) {
+		boolean isRow = false;
+
+		switch (ch) {
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
+			isRow = true;
+			break;
+		default:
+			isRow = false;
+			break;
+		}
+
+		return isRow;
 	}
 }

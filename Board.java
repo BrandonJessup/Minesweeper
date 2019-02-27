@@ -51,10 +51,10 @@ public class Board {
 		Random random = new Random();
 		int minesLeftToPlace = mines;
 		while (minesLeftToPlace > 0) {
-			// Randomly pick two numbers from 1 to 9
+			// Randomly pick two numbers from 0 to 8
 			// Check if there is a mine on that tile
-			int randomColumn = random.nextInt(9) + 1;
-			int randomRow    = random.nextInt(9) + 1;
+			int randomColumn = random.nextInt(9);
+			int randomRow    = random.nextInt(9);
 
 			if (!tiles[randomRow][randomColumn].isMine()) {
 				tiles[randomRow][randomColumn].makeMine();

@@ -12,9 +12,38 @@ public class Board {
 	private int mines;
 
 	public Board() {
-		tiles = new Tile[9][9];
+		initTiles();
 		populate();
 		updateTileNumbers();
+	}
+
+	// Create array of tiles.
+	private void initTiles() {
+		tiles = new Tile[9][9];
+
+		for (int i = 0; i < 9; ++i) {
+			for (int j = 0; j < 9; ++j) {
+				tiles[i][j] = new Tile();
+			}
+		}
+	}
+
+	// Display contents of board in console.
+	public void display() {
+		System.out.println("\n    A B C D E F G H I\n");
+		for (int row = 0; row < 9; row++) {
+			System.out.print((row + 1) + "   ");
+			for (int column = 0; column < 9; column++) {
+				if (tiles[row][column].isRevealed()) {
+					System.out.print(tiles[row][column].getDisplay() + " ");
+				}
+				else {
+					System.out.print("# ");
+				}
+			}
+			System.out.print("\n");
+		}
+		System.out.print("\n");
 	}
 
 	// Returns number of mines on the board less the number of marked tiles.

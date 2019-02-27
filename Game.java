@@ -5,6 +5,12 @@
 import java.util.Scanner;
 
 public class Game {
+	Board board;
+
+	public Game() {
+		board = new Board();
+	}
+
 	// Display the title screen and launch into the game should the user
 	// request to.
 	public void start() {
@@ -22,7 +28,7 @@ public class Game {
 	private void gameLoop() {
 		String response = "";
 		while (!response.contentEquals("exit")) {
-			// TODO: Display game board.
+			board.display();
 			response = turnPrompt();
 			// TODO: Handle validated user input.
 		}

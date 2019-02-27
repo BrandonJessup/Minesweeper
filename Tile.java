@@ -27,6 +27,12 @@ public class Tile {
 		return isMine;
 	}
 
+	// Turn tile into a mine.
+	public void makeMine() {
+		isMine = true;
+		display = '@';
+	}
+
 	// Change the character the tile appears as when revealed.
 	public void setDisplay(char ch) {
 		display = ch;

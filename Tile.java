@@ -47,9 +47,14 @@ public class Tile {
 		return isRevealed;
 	}
 
-	// Mark the tile.
-	public void mark() {
-		isMarked = true;
+	// Toggle marked status of tile.
+	public void toggleMark() {
+		if (isMarked) {
+			isMarked = false;
+		}
+		else {
+			isMarked = true;
+		}
 	}
 
 	// Return whether the tile is marked.

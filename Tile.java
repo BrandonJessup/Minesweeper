@@ -67,4 +67,14 @@ public class Tile {
 	public boolean isMarked() {
 		return isMarked;
 	}
+
+	// Return true if tile appears as a blank tile when revealed.
+	public boolean isBlank() {
+		if (display == ' ') {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 }

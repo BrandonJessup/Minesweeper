@@ -115,7 +115,13 @@ public class Game {
 				}
 			}
 			else if (isMark(response)) {
-				valid = true;
+				if (!board.tileIsRevealed(inputToCoordinate(response.substring(1)))) {
+					valid = true;
+				}
+				else {
+					valid = false;
+					System.out.println("You can't mark a tile that has already been scanned!\n");
+				}
 			}
 			else {
 				valid = false;

@@ -28,6 +28,7 @@ public class Game {
 	private void gameLoop() {
 		String response = "";
 		while (!response.contentEquals("exit")) {
+			board.showRemainingMines();
 			board.display();
 			response = turnPrompt();
 

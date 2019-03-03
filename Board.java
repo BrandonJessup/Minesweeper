@@ -281,4 +281,19 @@ public class Board {
 	public boolean tileIsMarked(Coordinate tile) {
 		return tiles[tile.y][tile.x].isMarked();
 	}
+
+	// Display how many mines are on the board less the number of marked mines.
+	public void showRemainingMines() {
+		int markCount = 0;
+		for (int row = 0; row < 9; row++) {
+			for (int column = 0; column < 9; column++) {
+				if (tiles[row][column].isMarked()) {
+					markCount++;
+				}
+			}
+		}
+
+		int remainingMines = mines - markCount;
+		System.out.println("\nMines Remaining: " + remainingMines);
+	}
 }

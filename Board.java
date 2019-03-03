@@ -186,13 +186,13 @@ public class Board {
 		}
 	}
 
-	// Returns true if tile is on board.
+    // Returns true if tile is on board.
 	private boolean onBoard(Coordinate tile) {
 		int rows    = 9;
 		int columns = 9;
 
-		boolean rowOnBoard = tile.y > 0 && tile.y < rows;
-		boolean columnOnBoard = tile.x > 0 && tile.x < columns;
+		boolean rowOnBoard = tile.y >= 0 && tile.y < rows;
+		boolean columnOnBoard = tile.x >= 0 && tile.x < columns;
 
 		if (rowOnBoard && columnOnBoard) {
 			return true;

@@ -106,7 +106,7 @@ public class Game {
 				printHelp();
 			}
 			else if (isScan(response)) {
-				if (response.length() == 2 && !board.tileIsRevealed(inputToCoordinate(response))) {
+				if (!board.tileIsRevealed(inputToCoordinate(response))) {
 					valid = true;
 				}
 				else {

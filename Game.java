@@ -36,7 +36,7 @@ public class Game {
 				board.revealTiles(inputToCoordinate(response));
 			}
 			else if (isMark(response)) {
-				// TODO: Mark/unmark tile player wants to.
+				board.markTile(inputToCoordinate(response.substring(1)));
 			}
 		}
 	}

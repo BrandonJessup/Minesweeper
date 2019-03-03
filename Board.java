@@ -39,7 +39,12 @@ public class Board {
 					System.out.print(tiles[row][column].getDisplay() + " ");
 				}
 				else {
-					System.out.print("# ");
+					if (tiles[row][column].isMarked()) {
+						System.out.print("! ");
+					}
+					else {
+						System.out.print("# ");
+					}
 				}
 			}
 			System.out.print("\n");
@@ -97,6 +102,11 @@ public class Board {
 	// surrounding it.
 	private void updateTileNumbers() {
 		// TODO: Write body of method.
+	}
+
+	// Mark or unmark the tile at the passed Coordinate.
+	public void markTile(Coordinate chosen) {
+		tiles[chosen.y][chosen.x].toggleMark();
 	}
 
 	// Reveal tile at passed coordinate and all connected tiles that are blank.

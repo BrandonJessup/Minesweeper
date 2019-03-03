@@ -110,35 +110,34 @@ public class Game {
 		return response;
 	}
 
-	// Takes a String and returns true if the content is a tile on the
-	// board (A7) or an exclamation point followed by a tile (!B3).
-	private boolean isTile(String str) {
-		boolean isTile;
-
-		int length = str.length();
-		// Check if user entered a valid scan tile command.
-		if (length == 2) {
+    // Returns true if the passed string is in the form of a scan command.
+	private boolean isScan(String str) {
+		if (str.length() == 2) {
 			if (isColumn(str.charAt(0)) && isRow(str.charAt(1))) {
-				isTile = true;
+				return true;
 			}
 			else {
-				isTile = false;
-			}
-		}
-		// Check if user entered a valid mark tile command.
-		else if (length == 3) {
-			if (str.charAt(0) == '!' && isColumn(str.charAt(1)) && isRow(str.charAt(2))) {
-				isTile = true;
-			}
-			else {
-				isTile = false;
+				return false;
 			}
 		}
 		else {
-			isTile = false;
+			return false;
 		}
+	}
 
-		return isTile;
+	// Returns true if the passed string is in the form of a mark command.
+	private boolean isMark(String str) {
+		if (str.length() == 3) {
+			if (str.charAt(0) == '!' && isColumn(str.charAt(1)) && isRow(str.charAt(2))) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else {
+			return false;
+		}
 	}
 
 	// Takes a character and returns true if the character is within the valid

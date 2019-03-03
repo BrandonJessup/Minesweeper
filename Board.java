@@ -301,4 +301,30 @@ public class Board {
 		int remainingMines = mines - markCount;
 		System.out.println("\nMines Remaining: " + remainingMines);
 	}
+
+	// Returns true if the only unscanned tiles are mines.
+	public boolean onlyMinesRemain() {
+		boolean onlyMinesRemain = true;
+
+		for (int row = 0; row < 9; row++) {
+			for (int column = 0; column < 9; column++) {
+				if (!tiles[row][column].isRevealed() && !tiles[row][column].isMine()) {
+					onlyMinesRemain = false;
+				}
+			}
+		}
+
+		return onlyMinesRemain;
+	}
+
+	// Reveal all tiles on the board.
+	public void revealAll() {
+		for (int row = 0; row < 9; row++) {
+			for (int column = 0; column < 9; column++) {
+				if (!tiles[row][column].isRevealed()) {
+					tiles[row][column].reveal();
+				}
+			}
+		}
+	}
 }

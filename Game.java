@@ -39,8 +39,15 @@ public class Game {
 				board.revealTiles(inputToCoordinate(response));
 				gameOverCheck(inputToCoordinate(response));
 				if (isOver) {
-					board.display();
-					System.out.print("You hit a mine!");
+					if (board.onlyMinesRemain()) {
+						board.revealAll();
+						board.display();
+						System.out.print("Congratulations, you win!");
+					}
+					else {
+						board.display();
+						System.out.print("You hit a mine!");
+					}
 				}
 			}
 			else if (isMark(response)) {
@@ -275,9 +282,10 @@ public class Game {
 		return isRow;
 	}
 
-	// End the game if the scanned tile was a mine.
+	// End the game if the scanned tile was a mine or if all non-mine tiles
+	// have been scanned.
 	private void gameOverCheck(Coordinate tile) {
-		if (board.tileIsMine(tile)) {
+		if (board.tileIsMine(tile) || board.onlyMinesRemain()) {
 			isOver = true;
 		}
 	}

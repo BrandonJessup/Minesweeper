@@ -112,52 +112,56 @@ public class Board {
 	// Reveal tile at passed coordinate and all connected tiles that are blank.
 	public void revealTiles(Coordinate chosen) {
 		ArrayList<Coordinate> toSearch = new ArrayList<Coordinate>();
-		toSearch.add(chosen);
 
-		while (toSearch.size() != 0) {
-			Coordinate center = new Coordinate(toSearch.get(0));
+		tiles[chosen.y][chosen.x].reveal();
+		if (tiles[chosen.y][chosen.x].isBlank()) {
+			toSearch.add(chosen);
 
-			Coordinate north = new Coordinate(center.x, center.y - 1);
-			boolean northValidAndBlank = reveal(north);
-			if (northValidAndBlank)
-				toSearch.add(north);
+			while (toSearch.size() != 0) {
+				Coordinate center = new Coordinate(toSearch.get(0));
 
-			Coordinate northEast = new Coordinate(center.x + 1, center.y - 1);
-			boolean northEastValidAndBlank = reveal(northEast);
-			if (northEastValidAndBlank)
-				toSearch.add(northEast);
+				Coordinate north = new Coordinate(center.x, center.y - 1);
+				boolean northValidAndBlank = reveal(north);
+				if (northValidAndBlank)
+					toSearch.add(north);
 
-			Coordinate east = new Coordinate(center.x + 1, center.y);
-			boolean eastValidAndBlank = reveal(east);
-			if (eastValidAndBlank)
-				toSearch.add(east);
+				Coordinate northEast = new Coordinate(center.x + 1, center.y - 1);
+				boolean northEastValidAndBlank = reveal(northEast);
+				if (northEastValidAndBlank)
+					toSearch.add(northEast);
 
-			Coordinate southEast = new Coordinate(center.x + 1, center.y + 1);
-			boolean southEastValidAndBlank = reveal(southEast);
-			if (southEastValidAndBlank)
-				toSearch.add(southEast);
+				Coordinate east = new Coordinate(center.x + 1, center.y);
+				boolean eastValidAndBlank = reveal(east);
+				if (eastValidAndBlank)
+					toSearch.add(east);
 
-			Coordinate south = new Coordinate(center.x, center.y + 1);
-			boolean southValidAndBlank = reveal(south);
-			if (southValidAndBlank)
-				toSearch.add(south);
+				Coordinate southEast = new Coordinate(center.x + 1, center.y + 1);
+				boolean southEastValidAndBlank = reveal(southEast);
+				if (southEastValidAndBlank)
+					toSearch.add(southEast);
 
-			Coordinate southWest = new Coordinate(center.x - 1, center.y + 1);
-			boolean southWestValidAndBlank = reveal(southWest);
-			if (southWestValidAndBlank)
-				toSearch.add(southWest);
+				Coordinate south = new Coordinate(center.x, center.y + 1);
+				boolean southValidAndBlank = reveal(south);
+				if (southValidAndBlank)
+					toSearch.add(south);
 
-			Coordinate west = new Coordinate(center.x - 1, center.y);
-			boolean westValidAndBlank = reveal(west);
-			if (westValidAndBlank)
-				toSearch.add(west);
+				Coordinate southWest = new Coordinate(center.x - 1, center.y + 1);
+				boolean southWestValidAndBlank = reveal(southWest);
+				if (southWestValidAndBlank)
+					toSearch.add(southWest);
 
-			Coordinate northWest = new Coordinate(center.x - 1, center.y - 1);
-			boolean northWestValidAndBlank = reveal(northWest);
-			if (northWestValidAndBlank)
-				toSearch.add(northWest);
+				Coordinate west = new Coordinate(center.x - 1, center.y);
+				boolean westValidAndBlank = reveal(west);
+				if (westValidAndBlank)
+					toSearch.add(west);
 
-			toSearch.remove(0);
+				Coordinate northWest = new Coordinate(center.x - 1, center.y - 1);
+				boolean northWestValidAndBlank = reveal(northWest);
+				if (northWestValidAndBlank)
+					toSearch.add(northWest);
+
+				toSearch.remove(0);
+			}
 		}
 	}
 

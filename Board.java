@@ -3,6 +3,7 @@
  */
 
 import java.util.Random;
+import java.util.ArrayList;
 
 public class Board {
 	// 9x9 array of tiles.
@@ -95,6 +96,104 @@ public class Board {
 	// Give each tile a display value indicating the number of mines
 	// surrounding it.
 	private void updateTileNumbers() {
-		// TODO: Write body of function.
+		// TODO: Write body of method.
+	}
+
+	// Reveal tile at passed coordinate and all connected tiles that are blank.
+	public void revealTiles(Coordinate chosen) {
+		ArrayList<Coordinate> toSearch = new ArrayList<Coordinate>();
+		toSearch.add(chosen);
+
+		while (toSearch.size() != 0) {
+			Coordinate center = new Coordinate(toSearch.get(0));
+
+			Coordinate north = new Coordinate(center.x, center.y - 1);
+			boolean northValidAndBlank = reveal(north);
+			if (northValidAndBlank)
+				toSearch.add(north);
+
+			Coordinate northEast = new Coordinate(center.x + 1, center.y - 1);
+			boolean northEastValidAndBlank = reveal(northEast);
+			if (northEastValidAndBlank)
+				toSearch.add(northEast);
+
+			Coordinate east = new Coordinate(center.x + 1, center.y);
+			boolean eastValidAndBlank = reveal(east);
+			if (eastValidAndBlank)
+				toSearch.add(east);
+
+			Coordinate southEast = new Coordinate(center.x + 1, center.y + 1);
+			boolean southEastValidAndBlank = reveal(southEast);
+			if (southEastValidAndBlank)
+				toSearch.add(southEast);
+
+			Coordinate south = new Coordinate(center.x, center.y + 1);
+			boolean southValidAndBlank = reveal(south);
+			if (southValidAndBlank)
+				toSearch.add(south);
+
+			Coordinate southWest = new Coordinate(center.x - 1, center.y + 1);
+			boolean southWestValidAndBlank = reveal(southWest);
+			if (southWestValidAndBlank)
+				toSearch.add(southWest);
+
+			Coordinate west = new Coordinate(center.x - 1, center.y);
+			boolean westValidAndBlank = reveal(west);
+			if (westValidAndBlank)
+				toSearch.add(west);
+
+			Coordinate northWest = new Coordinate(center.x - 1, center.y - 1);
+			boolean northWestValidAndBlank = reveal(northWest);
+			if (northWestValidAndBlank)
+				toSearch.add(northWest);
+
+			toSearch.remove(0);
+		}
+	}
+
+	// Reveal tile if on board and return true if tile is blank or false when
+	// tile is not blank, already revealed, or is not on the board.
+	private boolean reveal(Coordinate chosen) {
+		if (onBoard(chosen)) {
+			Tile tile = tiles[chosen.y][chosen.x];
+
+			if (tile.isRevealed()) {
+				return false;
+			}
+			else {
+				tile.reveal();
+			}
+
+			if (tile.isBlank()) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else {
+			return false;
+		}
+	}
+
+	// Returns true if tile is on board.
+	private boolean onBoard(Coordinate tile) {
+		int rows    = 9;
+		int columns = 9;
+
+		boolean rowOnBoard = tile.y > 0 && tile.y < rows;
+		boolean columnOnBoard = tile.x > 0 && tile.x < columns;
+
+		if (rowOnBoard && columnOnBoard) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	// Returns true if tile at passed Coordinate is revealed.
+	public boolean tileIsRevealed(Coordinate tile) {
+		return tiles[tile.y][tile.x].isRevealed();
 	}
 }

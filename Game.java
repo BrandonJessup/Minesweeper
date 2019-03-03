@@ -30,7 +30,14 @@ public class Game {
 		while (!response.contentEquals("exit")) {
 			board.display();
 			response = turnPrompt();
-			// TODO: Handle validated user input.
+
+			// Handle validated user input.
+			if (isScan(response)) {
+				board.revealTiles(inputToCoordinate(response));
+			}
+			else if (isMark(response)) {
+				// TODO: Mark/unmark tile player wants to.
+			}
 		}
 	}
 
@@ -98,7 +105,16 @@ public class Game {
 				valid = true;
 				printHelp();
 			}
-			else if (isTile(response)) {
+			else if (isScan(response)) {
+				if (response.length() == 2 && !board.tileIsRevealed(inputToCoordinate(response))) {
+					valid = true;
+				}
+				else {
+					valid = false;
+					System.out.println("That tile has already been scanned!\n");
+				}
+			}
+			else if (isMark(response)) {
 				valid = true;
 			}
 			else {
@@ -110,7 +126,54 @@ public class Game {
 		return response;
 	}
 
-    // Returns true if the passed string is in the form of a scan command.
+	// Takes a string with a length of two and Returns it as a Coordinate
+	// matching that tile on the board.
+	private Coordinate inputToCoordinate(String str) {
+		Coordinate tile = new Coordinate();
+
+		char upper = Character.toUpperCase(str.charAt(0));
+		switch (upper) {
+		case 'A':
+			tile.x = 0;
+			break;
+		case 'B':
+			tile.x = 1;
+			break;
+		case 'C':
+			tile.x = 2;
+			break;
+		case 'D':
+			tile.x = 3;
+			break;
+		case 'E':
+			tile.x = 4;
+			break;
+		case 'F':
+			tile.x = 5;
+			break;
+		case 'G':
+			tile.x = 6;
+			break;
+		case 'H':
+			tile.x = 7;
+			break;
+		case 'I':
+			tile.x = 8;
+			break;
+		default:
+			tile.x = -1;
+			break;
+		}
+
+		// One is subtracted from the user input row because the rows as
+		// indexed in the array start at zero and the rows shown on the
+		// board visual presented to the user start at 1.
+		tile.y = Character.getNumericValue(str.charAt(1)) - 1;
+
+		return tile;
+	}
+
+	// Returns true if the passed string is in the form of a scan command.
 	private boolean isScan(String str) {
 		if (str.length() == 2) {
 			if (isColumn(str.charAt(0)) && isRow(str.charAt(1))) {

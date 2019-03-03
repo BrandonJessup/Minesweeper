@@ -101,7 +101,73 @@ public class Board {
 	// Give each tile a display value indicating the number of mines
 	// surrounding it.
 	private void updateTileNumbers() {
-		// TODO: Write body of method.
+		for (int row = 0; row < 9; row++) {
+			for (int column = 0; column < 9; column++) {
+				if (!tiles[row][column].isMine()) {
+					int mineCount = 0;
+
+					Coordinate north = new Coordinate(column, row - 1);
+					if (onBoard(north)) {
+						if (tiles[north.y][north.x].isMine()) {
+							mineCount++;
+						}
+					}
+
+					Coordinate northEast = new Coordinate(column + 1, row - 1);
+					if (onBoard(northEast)) {
+						if (tiles[northEast.y][northEast.x].isMine()) {
+							mineCount++;
+						}
+					}
+
+					Coordinate east = new Coordinate(column + 1, row);
+					if (onBoard(east)) {
+						if (tiles[east.y][east.x].isMine()) {
+							mineCount++;
+						}
+					}
+
+					Coordinate southEast = new Coordinate(column + 1, row + 1);
+					if (onBoard(southEast)) {
+						if (tiles[southEast.y][southEast.x].isMine()) {
+							mineCount++;
+						}
+					}
+
+					Coordinate south = new Coordinate(column, row + 1);
+					if (onBoard(south)) {
+						if (tiles[south.y][south.x].isMine()) {
+							mineCount++;
+						}
+					}
+
+					Coordinate southWest = new Coordinate(column - 1, row + 1);
+					if (onBoard(southWest)) {
+						if (tiles[southWest.y][southWest.x].isMine()) {
+							mineCount++;
+						}
+					}
+
+					Coordinate west = new Coordinate(column - 1, row);
+					if (onBoard(west)) {
+						if (tiles[west.y][west.x].isMine()) {
+							mineCount++;
+						}
+					}
+
+					Coordinate northWest = new Coordinate(column - 1, row - 1);
+					if (onBoard(northWest)) {
+						if (tiles[northWest.y][northWest.x].isMine()) {
+							mineCount++;
+						}
+					}
+
+					if (mineCount != 0) {
+						tiles[row][column].setDisplay((char)(mineCount + '0'));
+					}
+				}
+			}
+		}
 	}
 
 	// Mark or unmark the tile at the passed Coordinate.
@@ -190,7 +256,7 @@ public class Board {
 		}
 	}
 
-    // Returns true if tile is on board.
+	// Returns true if tile is on board.
 	private boolean onBoard(Coordinate tile) {
 		int rows    = 9;
 		int columns = 9;

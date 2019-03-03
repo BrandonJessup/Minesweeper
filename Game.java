@@ -107,7 +107,13 @@ public class Game {
 			}
 			else if (isScan(response)) {
 				if (!board.tileIsRevealed(inputToCoordinate(response))) {
-					valid = true;
+					if (!board.tileIsMarked(inputToCoordinate(response))) {
+						valid = true;
+					}
+					else {
+						valid = false;
+						System.out.println("You can't scan a tile that is marked!\n");
+					}
 				}
 				else {
 					valid = false;

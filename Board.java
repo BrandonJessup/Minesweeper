@@ -276,4 +276,9 @@ public class Board {
 	public boolean tileIsRevealed(Coordinate tile) {
 		return tiles[tile.y][tile.x].isRevealed();
 	}
+
+	// Returns true if tile at passed Coordinate is marked.
+	public boolean tileIsMarked(Coordinate tile) {
+		return tiles[tile.y][tile.x].isMarked();
+	}
 }

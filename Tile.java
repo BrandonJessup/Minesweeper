@@ -16,7 +16,7 @@ public class Tile {
 	private boolean isMarked;
 
 	public Tile() {
-		display    = ' ';
+		display    = '.';
 		isMine     = false;
 		isRevealed = false;
 		isMarked   = false;
@@ -70,7 +70,7 @@ public class Tile {
 
 	// Return true if tile appears as a blank tile when revealed.
 	public boolean isBlank() {
-		if (display == ' ') {
+		if (display == '.') {
 			return true;
 		}
 		else {

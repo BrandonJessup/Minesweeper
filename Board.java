@@ -47,9 +47,9 @@ public class Board {
 					}
 				}
 			}
-			System.out.print("\n");
+			System.out.print("  " + (row + 1) + "\n");
 		}
-		System.out.print("\n");
+		System.out.println("\n    A B C D E F G H I\n");
 	}
 
 	// Returns number of mines on the board less the number of marked tiles.

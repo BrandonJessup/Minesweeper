@@ -6,9 +6,11 @@ import java.util.Scanner;
 
 public class Game {
 	Board board;
+	boolean isOver;
 
 	public Game() {
 		board = new Board();
+		isOver = false;
 	}
 
 	// Display the title screen and launch into the game should the user
@@ -27,7 +29,7 @@ public class Game {
 	// The main loop of the game.
 	private void gameLoop() {
 		String response = "";
-		while (!response.contentEquals("exit")) {
+		while (!response.contentEquals("exit") && !isOver) {
 			board.showRemainingMines();
 			board.display();
 			response = turnPrompt();
@@ -35,6 +37,11 @@ public class Game {
 			// Handle validated user input.
 			if (isScan(response)) {
 				board.revealTiles(inputToCoordinate(response));
+				gameOverCheck(inputToCoordinate(response));
+				if (isOver) {
+					board.display();
+					System.out.print("You hit a mine!");
+				}
 			}
 			else if (isMark(response)) {
 				board.markTile(inputToCoordinate(response.substring(1)));
@@ -266,5 +273,12 @@ public class Game {
 		}
 
 		return isRow;
+	}
+
+	// End the game if the scanned tile was a mine.
+	private void gameOverCheck(Coordinate tile) {
+		if (board.tileIsMine(tile)) {
+			isOver = true;
+		}
 	}
 }

@@ -282,6 +282,11 @@ public class Board {
 		return tiles[tile.y][tile.x].isMarked();
 	}
 
+	// Returns true if tile at passed Coordinate is a mine.
+	public boolean tileIsMine(Coordinate tile) {
+		return tiles[tile.y][tile.x].isMine();
+	}
+
 	// Display how many mines are on the board less the number of marked mines.
 	public void showRemainingMines() {
 		int markCount = 0;

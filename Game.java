@@ -45,6 +45,7 @@ public class Game {
 						System.out.print("Congratulations, you win!");
 					}
 					else {
+						board.revealMines();
 						board.display();
 						System.out.print("You hit a mine!");
 					}

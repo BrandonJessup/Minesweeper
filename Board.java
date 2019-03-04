@@ -327,4 +327,15 @@ public class Board {
 			}
 		}
 	}
+
+	// Reveal all mines on the board.
+	public void revealMines() {
+		for (int row = 0; row < 9; row++) {
+			for (int column = 0; column < 9; column++) {
+				if (!tiles[row][column].isRevealed() && tiles[row][column].isMine()) {
+					tiles[row][column].reveal();
+				}
+			}
+		}
+	}
 }

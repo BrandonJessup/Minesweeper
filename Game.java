@@ -5,8 +5,8 @@
 import java.util.Scanner;
 
 public class Game {
-	Board board;
-	boolean isOver;
+	private Board board;
+	private boolean isOver;
 
 	public Game() {
 		board = new Board();

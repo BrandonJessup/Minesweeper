@@ -7,10 +7,12 @@ import java.util.Scanner;
 public class Game {
 	private Board board;
 	private boolean isOver;
+	private boolean isFirstMove;
 
 	public Game() {
 		board = new Board();
 		isOver = false;
+		isFirstMove = true;
 	}
 
 	// Display the title screen and launch into the game should the user
@@ -36,6 +38,19 @@ public class Game {
 
 			// Handle validated user input.
 			if (isScan(response)) {
+				// User cannot be allowed to lose on the first move of the game
+				// so we have to make sure that the tile they scanned isn't a
+				// mine.
+				if (isFirstMove) {
+					// Keep generating a new board until we get one that
+					// doesn't have a mine on the scanned tile.
+					while (board.tileIsMine(inputToCoordinate(response))) {
+						board = new Board();
+					}
+
+					isFirstMove = false;
+				}
+
 				board.revealTiles(inputToCoordinate(response));
 				gameOverCheck(inputToCoordinate(response));
 				if (isOver) {

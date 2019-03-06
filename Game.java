@@ -10,9 +10,7 @@ public class Game {
 	private boolean isFirstMove;
 
 	public Game() {
-		board = new Board();
-		isOver = false;
-		isFirstMove = true;
+		resetGame();
 	}
 
 	// Display the title screen and launch into the game should the user
@@ -30,44 +28,54 @@ public class Game {
 
 	// The main loop of the game.
 	private void gameLoop() {
-		String response = "";
-		while (!response.contentEquals("exit") && !isOver) {
-			board.showRemainingMines();
-			board.display();
-			response = turnPrompt();
+		String response = "yes";
+		while (!response.contentEquals("exit") && isYes(response)) {
+			while (!response.contentEquals("exit") && !isOver) {
+				board.showRemainingMines();
+				board.display();
+				response = turnPrompt();
 
-			// Handle validated user input.
-			if (isScan(response)) {
-				// User cannot be allowed to lose on the first move of the game
-				// so we have to make sure that the tile they scanned isn't a
-				// mine.
-				if (isFirstMove) {
-					// Keep generating a new board until we get one that
-					// doesn't have a mine on the scanned tile.
-					while (board.tileIsMine(inputToCoordinate(response))) {
-						board = new Board();
+				// Handle validated user input.
+				if (isScan(response)) {
+					// User cannot be allowed to lose on the first move of the game
+					// so we have to make sure that the tile they scanned isn't a
+					// mine.
+					if (isFirstMove) {
+						// Keep generating a new board until we get one that
+						// doesn't have a mine on the scanned tile.
+						while (board.tileIsMine(inputToCoordinate(response))) {
+							board = new Board();
+						}
+
+						isFirstMove = false;
 					}
 
-					isFirstMove = false;
+					board.revealTiles(inputToCoordinate(response));
+					gameOverCheck(inputToCoordinate(response));
+					if (isOver) {
+						if (board.onlyMinesRemain()) {
+							board.revealAll();
+							board.display();
+							System.out.println("Congratulations, you win!");
+						}
+						else {
+							board.revealMines();
+							board.display();
+							System.out.println("You hit a mine!");
+						}
+					}
 				}
-
-				board.revealTiles(inputToCoordinate(response));
-				gameOverCheck(inputToCoordinate(response));
-				if (isOver) {
-					if (board.onlyMinesRemain()) {
-						board.revealAll();
-						board.display();
-						System.out.print("Congratulations, you win!");
-					}
-					else {
-						board.revealMines();
-						board.display();
-						System.out.print("You hit a mine!");
-					}
+				else if (isMark(response)) {
+					board.markTile(inputToCoordinate(response.substring(1)));
 				}
 			}
-			else if (isMark(response)) {
-				board.markTile(inputToCoordinate(response.substring(1)));
+
+			if (!response.contentEquals("exit")) {
+				response = playAgainPrompt();
+				if (isYes(response)) {
+					System.out.println("Starting a new game...");
+					resetGame();
+				}
 			}
 		}
 	}
@@ -304,5 +312,36 @@ public class Game {
 		if (board.tileIsMine(tile) || board.onlyMinesRemain()) {
 			isOver = true;
 		}
+	}
+
+	// Create a new board and reset relevant variables.
+	private void resetGame() {
+		board = new Board();
+		isOver = false;
+		isFirstMove = true;
+	}
+
+	// Returns true if the passed string can be taken to mean yes.
+	private boolean isYes(String str) {
+		String upper = str.toUpperCase();
+		switch (upper) {
+		case "YES":
+		case "Y":
+			return true;
+		default:
+			return false;
+		}
+	}
+
+	// Ask player if they would like to play again and return their response.
+	private String playAgainPrompt() {
+		String response = "";
+
+		Scanner input = new Scanner(System.in);
+		System.out.println("\nWould you like to play again?");
+		System.out.print("> ");
+		response = input.nextLine();
+
+		return response;
 	}
 }
